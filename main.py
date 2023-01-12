@@ -31,15 +31,23 @@ def collect_imgs_in_directory(path):
 
 
 def set_scale(imgs, scale):
+    scaled_imgs = []
+
     for img in imgs:
-        i = img['image']
+        scaled_img = {}
+
+        scaled_img['image'] = img['image'].copy()
+        scaled_img['scale'] = scale
+        scaled_img['fileName'] = img['fileName']
 
         img['scale'] = scale
 
-        img['image'] = i.resize(
-            (int(i.size[0] * scale), int(i.size[1] * scale)))
+        scaled_img['image'] = scaled_img['image'].resize(
+            (int(scaled_img['image'].size[0] * scale), int(scaled_img['image'].size[1] * scale)))
 
-    return imgs
+        scaled_imgs.append(scaled_img)
+
+    return scaled_imgs
 
 
 def save(imgs, scale):
